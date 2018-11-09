@@ -11,7 +11,7 @@ UTILS=$BASEDIR/utils
 ### Read in variables from user
 audio_dir=$BASEDIR/$1
 
-### Other variables speicfic to this script
+### Other variables specific to this script
 OSHOME=$REPOS/openSMILE-2.1.0/
 CONFIG_FILE=$UTILS/vad_segmenter_aclew.conf
 OPENSMILE=$OSHOME/bin/linux_x64_standalone_static/SMILExtract

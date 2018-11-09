@@ -12,7 +12,7 @@ UTILS=$BASEDIR/utils
 audio_dir=$BASEDIR/$1
 system=$2
 
-### Other variables speicfic to this script
+### Other variables specific to this script
 #none
 
 display_usage() {

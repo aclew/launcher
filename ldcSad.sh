@@ -11,7 +11,7 @@ UTILS=$BASEDIR/utils
 ### Read in variables from user
 audio_dir=$BASEDIR/$1
 
-### Other variables speicfic to this script
+### Other variables specific to this script
 LDC_SAD_DIR=$REPOS/ldc_sad_hmm
 workdir=$audio_dir/temp/diartk
 mkdir -p $workdir

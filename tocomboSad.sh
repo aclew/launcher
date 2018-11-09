@@ -14,7 +14,7 @@ audio_dir=$BASEDIR/1
 trs_format=$2
 
 
-### Other variables speicfic to this script
+### Other variables specific to this script
 # create temp dir
 workdir=$audio_dir/temp/tocomboSad
 mkdir -p $workdir
