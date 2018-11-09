@@ -1,57 +1,59 @@
 #!/bin/bash
-# Since the script is built to be launched outside of the vm, source
-# the .bashrc which is not necessarily sourced!
+# Launcher onset routine
 source ~/.bashrc
-
-# Absolute path to this script. /home/user/bin/foo.sh
 SCRIPT=$(readlink -f $0)
-# Absolute path this script is in. /home/user/bin
-BASEDIR=`dirname $SCRIPT`
+BASEDIR=`dirname $(dirname $SCRIPT )`
+conda_dir=$BASEDIR/anaconda/bin
+REPOS=$BASEDIR/repos
+UTILS=$BASEDIR/utils
+# end of launcher onset routine
 
-if [ $# -lt 2 ] ; then
-  echo "Usage: eval.sh <data> <system> <<optionalSAD>>"
-  echo "where data is the folder containing the data"
-  echo "and system is the system you want"
-  echo "to evaluate. Choices are:"
-  echo "  ldc_sad"
-  echo "  noisemes_sad"
-  echo "  diartk"
-  echo "If evaluating diartk, please give which flavour"
-  echo "of SAD you used to produce the diartk transcription"
-  echo "you want to evaluate"
-  exit
-fi
-
-# switch eval depending on system
-audio_dir=$1
+### Read in variables from user
+audio_dir=$BASEDIR/$1
 system=$2
 
+### Other variables speicfic to this script
+#none
+
+display_usage() {
+    echo "Usage: eval.sh <data> <system> <<optionalSAD>>"
+    echo "where data is the folder containing the data"
+    echo "and system is the system you want"
+    echo "to evaluate. Choices are:"
+    echo "  ldcSad"
+    echo "  noisemesSad"
+    echo "  tocomboSad"
+    echo "  opensmileSad"
+    echo "  lenaSad"
+    echo "  diartk"
+    echo "  yunitate"
+    echo "  lenaDiar"
+    echo "If evaluating diartk, please give which flavour"
+    echo "of SAD you used to produce the transcription"
+    echo "you want to evaluate"
+    exit 1
+}
+
+if [ $# -lt 2 ] ; then
+  display_usage
+fi
+
+
+
+### SCRIPT STARTS
 case $system in
-"ldc_sad"|"noisemes")
-   sh $BASEDIR/evalSAD.sh $audio_dir $system
+"tocomboSad"|"opensmileSad"|"ldcSad"|"noisemesSad|lenaSad")
+   sh $UTILS/evalSAD.sh $audio_dir $system
+   ;;
+"yunitate"|"lenaDiar")
+   sh $UTILS/evalDiar.sh $audio_dir $system
    ;;
 "diartk")
-   if [ $# -ne 3 ]; then
-      echo "please specify SAD flavour for diartk"
-      echo "Choices are :"
-      echo "  ldc_sad"
-      echo "  noisemes_sad"
-      echo "  textgrid"
-      echo "  eaf"
-      echo "  rttm"
-      exit 1
-   fi
    sad=$3
-   sh $BASEDIR/evalDiar.sh $audio_dir $sad
+   sh $UTILS/evalDiar.sh $audio_dir $system $sad
    ;;
 *)
-  # pass here if no argument is given
-  echo "ERROR: please choose system between:"
-  echo "  ldc_sad"
-  echo "  noisemes_sad"
-  echo "  diartk"
-  echo "Now exiting..."
-  exit 1
+   display_usage
    ;;
 
 esac
