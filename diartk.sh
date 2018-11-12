@@ -10,7 +10,7 @@ UTILS=$BASEDIR/utils
 
 
 ### Read in variables from user
-audio_dir=$BASEDIR/1
+audio_dir=$BASEDIR/$1
 trs_format=$2
 
 

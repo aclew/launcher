@@ -11,6 +11,7 @@ BASEDIR=`dirname $(dirname $SCRIPT )`
 conda_dir=$BASEDIR/anaconda/bin
 REPOS=$BASEDIR/repos
 UTILS=$BASEDIR/utils
+NOHOME=` echo $BASEDIR | sed "s/\/home//"`
 # end of launcher onset routine
 
 
@@ -20,6 +21,7 @@ UTILS=$BASEDIR/utils
 
 ### Other variables specific to this script
 # create temp dir
+audio_dir=$NOHOME/data/
 workdir=$audio_dir/temp/test/
 mkdir -p $workdir
 
@@ -45,18 +47,18 @@ FAILURES=false
 echo "Starting tests"
 echo "Downloading test audio..."
 
-cd $BASEDIR/data
+cd $audio_dir
 # get transcript
 wget -q -N https://homebank.talkbank.org/data/Public/VanDam-Daylong.zip
 unzip -q -o VanDam-Daylong.zip
 
 # This is the working directory for the tests; right beside the input
-cd VanDam-Daylong/BN32/
+cd $audio_dir/VanDam-Daylong/BN32/
 # Get daylong recording from the web
 wget -q -N https://media.talkbank.org/homebank/Public/VanDam-Daylong/BN32/BN32_010007.mp3
 
 WORKDIR=`pwd`
-DATADIR=$BASEDIR/data/VanDam-Daylong/BN32  # relative to /vagrant, used by launcher scripts
+DATADIR=$audio_dir/VanDam-Daylong/BN32  # relative to /vagrant, used by launcher scripts
 BASE=BN32_010007 # base filename for test input file, minus .wav or .rttm suffix
 BASETEST=${BASE}_test
 START=2513 # 41:53 in seconds
