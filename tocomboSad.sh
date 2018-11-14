@@ -10,7 +10,7 @@ UTILS=$BASEDIR/utils
 
 
 ### Read in variables from user
-audio_dir=$BASEDIR/1
+audio_dir=/vagrant/$1
 trs_format=$2
 
 
@@ -36,7 +36,7 @@ extension="${filename##*.}"
 basename="${filename%.*}"
 
 # Check audio_dir to see if empty or if contains empty wav
-bash $BASEDIR/check_folder.sh $audio_dir
+bash /home/vagrant/utils/check_folder.sh $audio_dir
 
 # let's get our bearings: set CWD to path of ToComboSAD
 cd $TOCOMBOSADDIR
@@ -71,7 +71,7 @@ mv $workdir/*ToCombo.txt $audio_dir
 #convert to rttms
 for f in $audio_dir/*.ToCombo.txt; do
   bn=`basename $f .wav.ToCombo.txt`
-  python $TOCOMBOSADDIR/tocombo2rttm.py $f $bn > $audio_dir/tocombo_sad_$bn.rttm
+  python $TOCOMBOSADDIR/tocombo2rttm.py $f $bn > $audio_dir/tocomboSad_$bn.rttm
 done
 
 # Delete temporary folder
