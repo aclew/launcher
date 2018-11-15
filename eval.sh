@@ -2,14 +2,16 @@
 # Launcher onset routine
 source ~/.bashrc
 SCRIPT=$(readlink -f $0)
-BASEDIR=`dirname $(dirname $SCRIPT )`
+BASEDIR=/home/vagrant
 conda_dir=$BASEDIR/anaconda/bin
 REPOS=$BASEDIR/repos
 UTILS=$BASEDIR/utils
+LAUNCHER=$BASEDIR/launcher
 # end of launcher onset routine
 
 ### Read in variables from user
-audio_dir=$BASEDIR/$1
+#audio_dir=/vagrant/$1
+audio_dir=$1
 system=$2
 
 ### Other variables specific to this script
@@ -38,19 +40,19 @@ if [ $# -lt 2 ] ; then
   display_usage
 fi
 
-
+echo "audio_dir in eval.sh is: " $audio_dir
 
 ### SCRIPT STARTS
 case $system in
 "tocomboSad"|"opensmileSad"|"ldcSad"|"noisemesSad|lenaSad")
-   sh $UTILS/evalSAD.sh $audio_dir $system
+   sh $LAUNCHER/evalSAD.sh $audio_dir $system
    ;;
 "yunitate"|"lenaDiar")
-   sh $UTILS/evalDiar.sh $audio_dir $system
+   sh $LAUNCHER/evalDiar.sh $audio_dir $system
    ;;
 "diartk")
    sad=$3
-   sh $UTILS/evalDiar.sh $audio_dir $system $sad
+   sh $LAUNCHER/evalDiar.sh $audio_dir $system $sad
    ;;
 *)
    display_usage

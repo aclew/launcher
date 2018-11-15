@@ -9,11 +9,11 @@ UTILS=$BASEDIR/utils
 # end of launcher onset routine
 
 ### Read in variables from user
-audio_dir=$BASEDIR/$1
+audio_dir=/vagrant/$1
 
 ### Other variables specific to this script
 OSHOME=$REPOS/openSMILE-2.1.0/
-CONFIG_FILE=$UTILS/vad_segmenter_aclew.conf
+CONFIG_FILE=$UTILS/vad_segmenter_aclew.conf.txt
 OPENSMILE=$OSHOME/bin/linux_x64_standalone_static/SMILExtract
 workdir=$audio_dir/temp/opensmileSad
 mkdir -p $workdir
@@ -41,7 +41,7 @@ for sad in `ls $audio_dir/*.wav`; do
     id=${id%.wav}
     > $audio_dir/${id}.txt #Make it empty if already present
     echo "Processing $id ..."
-    LD_LIBRARY_PATH=$BASEDIR/usr/local/lib \
+    LD_LIBRARY_PATH=/usr/local/lib \
 	$OPENSMILE \
 	-C $CONFIG_FILE \
 	-I $file \

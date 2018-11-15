@@ -2,14 +2,14 @@
 # Launcher onset routine
 source ~/.bashrc
 SCRIPT=$(readlink -f $0)
-BASEDIR=`dirname $(dirname $SCRIPT )`
+BASEDIR=/home/vagrant
 conda_dir=$BASEDIR/anaconda/bin
 REPOS=$BASEDIR/repos
 UTILS=$BASEDIR/utils
 # end of launcher onset routine
 
 ### Read in variables from user
-audio_dir=$BASEDIR/$1
+audio_dir=/vagrant/$1
 
 ### Other variables specific to this script
 LDC_SAD_DIR=$REPOS/ldc_sad_hmm

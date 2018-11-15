@@ -11,7 +11,7 @@ UTILS=$BASEDIR/utils
 
 ### Read in variables from user
 # data directory
-audio_dir=$BASEDIR/$1
+audio_dir=/vagrant/$1
 filename=$(basename "$audio_dir")
 dirname=$(dirname "$audio_dir")
 extension="${filename##*.}"
@@ -25,7 +25,7 @@ system=$2
 # Path to scoring tool NOTE: NOT dscore!
 ldcSad_DIR=$REPOS/ldc_sad_hmm
 # create temp dir
-workdir=$audio_dir/temp/evalSad/
+workdir=$audio_dir
 mkdir -p $workdir
 
 
@@ -51,9 +51,9 @@ fi
 # Set CWD to path of scoring tool
 cd $ldcSad_DIR
 
-mkdir 
+#mkdir
 
-$BASEDIR/create_ref_sys.sh $audio_dir $sys_name true
+$UTILS/create_ref_sys.sh $audio_dir $sys_name true
 
 echo "evaluating"
 #$conda_dir/python score_batch.py $audio_dir/${sys_name}_eval.df $workdir/temp_ref $workdir/temp_sys
